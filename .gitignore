@@ -60,3 +60,5 @@ dkms.conf
 # Outputed execs
 chip8
 chip8_debug
+parse_instruction_test
+processor_test

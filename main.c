@@ -30,10 +30,13 @@ int main(int argc, char *argv[])
     
     const int screenWidth = 640;
     const int screenHeight = 320;
+    const int framerate = 60;
+    int hertz = 500;
+    int steps_per_frame = hertz / framerate;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    InitWindow(screenWidth, screenHeight, "Chip8");
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    SetTargetFPS(framerate);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop
@@ -46,8 +49,13 @@ int main(int argc, char *argv[])
 
         // Draw
         //----------------------------------------------------------------------------------
-
-        chip8_step(&chip);
+        for(int i = 0; i < steps_per_frame; i++)
+        {
+            chip8_step(&chip);
+            if(chip.screen_changed)
+                break;
+        }
+        chip.screen_changed = 0;
         chip8_tick_delay_timer(&chip);
         chip8_tick_sound_timer(&chip);
         BeginDrawing();
@@ -67,8 +75,7 @@ int main(int argc, char *argv[])
                         DrawRectangle(x_offset, y_offset, rect_width, rect_height, BEIGE);
                     }
                 }
-            }
-         DrawRectangle(0, 310, 10, 10, BEIGE);   
+            } 
         EndDrawing();
         //----------------------------------------------------------------------------------
     }

@@ -187,6 +187,8 @@ void op_draw_to_screen(chip8* chip, byte reg_x, byte reg_y, byte nibble)
             }
         }
     }
+
+    chip->screen_changed = 1;
 }
 
 void op_skip_key_pressed_reg(chip8* chip, byte reg_x)
