@@ -106,7 +106,7 @@ void set_key_pressed(chip8 *chip)
     
     for(int i = 0; i < 16; i++)
     {
-        if(IsKeyPressed(raylib_keys[i]))
+        if(IsKeyDown(raylib_keys[i]))
             chip->keys[chip8_keys[i]] = 1;
         if(IsKeyReleased(raylib_keys[i]))
             chip->keys[chip8_keys[i]] = 0;

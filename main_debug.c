@@ -39,9 +39,10 @@ int main(int argc, char *argv[])
 
     chip8_init(&chip, program, program_size);
     chip.keys[2] = 1;
-
+    
     while(1)    
     {
+        chip.keys[2] = 1;
         chip8_step(&chip);
     }
 
