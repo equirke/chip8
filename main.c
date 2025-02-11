@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
     chip8 chip;
 
-    init_chip8(&chip, program, program_size);
+    chip8_init(&chip, program, program_size);
     
     const int screenWidth = 640;
     const int screenHeight = 320;
@@ -47,7 +47,9 @@ int main(int argc, char *argv[])
         // Draw
         //----------------------------------------------------------------------------------
 
-        step(&chip);
+        chip8_step(&chip);
+        chip8_tick_delay_timer(&chip);
+        chip8_tick_sound_timer(&chip);
         BeginDrawing();
 
             ClearBackground(DARKBROWN);

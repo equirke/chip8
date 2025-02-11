@@ -5,8 +5,10 @@
 #include "chip_constants.h"
 
 
-void step(chip8*);
-void init_chip8(chip8*, byte*, int);
+void chip8_step(chip8*);
+void chip8_init(chip8*, byte*, int);
+void chip8_tick_delay_timer(chip8* chip);
+void chip8_tick_sound_timer(chip8* chip);
 
 // Operations for testing. Not to be used outside of processing core code.
 

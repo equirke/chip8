@@ -37,12 +37,12 @@ int main(int argc, char *argv[])
 
     chip8 chip;
 
-    init_chip8(&chip, program, program_size);
+    chip8_init(&chip, program, program_size);
 
 
     while(1)    
     {
-        step(&chip);
+        chip8_step(&chip);
     }
 
     return 0;

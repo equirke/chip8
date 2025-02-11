@@ -257,7 +257,7 @@ void op_load_regs_at_i(chip8* chip, byte reg_x)
     }
 }
 
-void step(chip8* chip)
+void chip8_step(chip8* chip)
 {   
     opcode op;
     byte upper = chip->memory[chip->PC];
@@ -377,8 +377,20 @@ void step(chip8* chip)
     }
 }
 
+void chip8_tick_delay_timer(chip8* chip)
+{
+    if(chip->DT > 0)
+        chip->DT--;
+}
 
-void init_chip8(chip8* chip, byte* program, int program_size)
+void chip8_tick_sound_timer(chip8* chip)
+{
+    if(chip->ST > 0)
+        chip->ST--;
+}
+
+
+void chip8_init(chip8* chip, byte* program, int program_size)
 {
     memset(chip->memory, 0, MEMORY_SIZE);
     memset(chip->stack, 0, STACK_SIZE);
