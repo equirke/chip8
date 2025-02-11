@@ -50,3 +50,13 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# vscode
+.vscode
+
+# chip8 roms
+*.ch8
+
+# Outputed execs
+chip8
+chip8_debug
