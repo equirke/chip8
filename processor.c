@@ -18,7 +18,7 @@ void op_cls(chip8* chip)
     for(int j = 0; j < SCREEN_HEIGHT; j++)
         for(int i = 0; i < SCREEN_WIDTH; i++)
         {
-            chip->screen[i][j] == 0;
+            chip->screen[i][j] = 0;
         }
 }
 
