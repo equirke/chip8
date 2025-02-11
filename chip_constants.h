@@ -8,6 +8,7 @@
 #define SCREEN_HEIGHT 32
 #define STACK_SIZE 17
 #define REG_VF 0x0F
+#define CHARACTERS_SIZE 80
 
 typedef unsigned char byte;
 typedef unsigned short word;

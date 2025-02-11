@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     chip8 chip;
 
     chip8_init(&chip, program, program_size);
-
+    chip.keys[2] = 1;
 
     while(1)    
     {
