@@ -177,9 +177,13 @@ void op_draw_to_screen(chip8* chip, byte reg_x, byte reg_y, byte nibble)
 
             if((old_pixel ^ (pixels & (0x80>>p))!= 0))
             {
+                chip->screen[x_pos_offset][y_pos_offset] = 1;
+            }
+            else
+            {
                 if(old_pixel)
                     chip->v_regs[REG_VF] = 1;
-                chip->screen[x_pos_offset][y_pos_offset] = 1;
+                chip->screen[x_pos_offset][y_pos_offset] = 0;
             }
         }
     }
