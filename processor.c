@@ -108,13 +108,13 @@ void op_sub_reg_to_reg(chip8* chip, byte reg_x, byte reg_y)
     chip->v_regs[reg_x] = chip->v_regs[reg_x] - chip->v_regs[reg_y];
 }
 
-void op_shift_right_reg(chip8* chip, byte reg_x)
+void op_shift_right_reg(chip8* chip, byte reg_x, byte reg_y)
 {
     if(chip->v_regs[reg_x] & 0x01)
         chip->v_regs[REG_VF]  = 1;
     else
         chip->v_regs[REG_VF]  = 0;
-    chip->v_regs[reg_x] = chip->v_regs[reg_x] >> 2;
+    chip->v_regs[reg_x] = chip->v_regs[reg_x] >> chip->v_regs[reg_y];
 }
 
 void op_subn_reg_to_reg(chip8* chip, byte reg_x, byte reg_y)
@@ -127,13 +127,13 @@ void op_subn_reg_to_reg(chip8* chip, byte reg_x, byte reg_y)
     chip->v_regs[reg_x] = chip->v_regs[reg_y] - chip->v_regs[reg_x];
 }
 
-void op_shift_left_reg(chip8* chip, byte reg_x)
+void op_shift_left_reg(chip8* chip, byte reg_x, byte reg_y)
 {
     if(chip->v_regs[reg_x] & 0x80)
         chip->v_regs[REG_VF]  = 1;
     else
         chip->v_regs[REG_VF]  = 0;
-    chip->v_regs[reg_x] = chip->v_regs[reg_x] << 1;
+    chip->v_regs[reg_x] = chip->v_regs[reg_x] << chip->v_regs[reg_y];
 }
 
 void op_skip_if_reg_not_equal_rr(chip8* chip, byte reg_x, byte reg_y)
@@ -211,6 +211,7 @@ void op_load_reg_from_delay_timer(chip8* chip, byte reg_x)
 
 void op_load_keypress_into_reg(chip8* chip, byte reg_x)
 {
+    chip->awaiting_input = 1;
     for(int i = 0; i < 16; i++)
         if(chip->keys[i])
         {
@@ -254,6 +255,7 @@ void op_save_regs_at_i(chip8* chip, byte reg_x)
     {
         chip->memory[chip->I + i] = chip->v_regs[i];
     }
+    chip->I += reg_x;
 }
 
 void op_load_regs_at_i(chip8* chip, byte reg_x)
@@ -262,6 +264,7 @@ void op_load_regs_at_i(chip8* chip, byte reg_x)
     {
         chip->v_regs[i] = chip->memory[chip->I + i];
     }
+    chip->I += reg_x;
 }
 
 void chip8_step(chip8* chip)
@@ -322,13 +325,13 @@ void chip8_step(chip8* chip)
             op_sub_reg_to_reg(chip, get_v_reg_x(upper), get_v_reg_y(lower));
             return;
         case SHR_RR:
-            op_shift_right_reg(chip, get_v_reg_x(upper));
+            op_shift_right_reg(chip, get_v_reg_x(upper), get_v_reg_y(lower));
             return;
         case SUBN_RR:
             op_subn_reg_to_reg(chip, get_v_reg_x(upper), get_v_reg_y(lower));
             return;
         case SHL_RR:
-            op_shift_right_reg(chip, get_v_reg_x(upper));
+            op_shift_right_reg(chip, get_v_reg_x(upper), get_v_reg_y(lower));
             return;
         case SNE_RR:
             op_skip_if_reg_not_equal_rr(chip, get_v_reg_x(upper), get_v_reg_y(lower));
@@ -426,6 +429,7 @@ void chip8_init(chip8* chip, byte* program, int program_size)
     chip->SP = 0;
     chip->DT = 0;
     chip->ST = 0;
+    chip->awaiting_input = 0;
 
     memcpy(chip->memory, characters, CHARACTERS_SIZE);
     memcpy(&(chip->memory[0x200]), program, program_size);

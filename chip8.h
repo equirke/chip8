@@ -16,6 +16,7 @@ typedef struct chip8
     byte screen[SCREEN_WIDTH][SCREEN_HEIGHT];
     byte screen_changed;
     byte keys[16];
+    byte awaiting_input;
 }chip8;
 
 #endif

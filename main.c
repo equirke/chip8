@@ -103,6 +103,19 @@ void set_key_pressed(chip8 *chip)
                          0x04, 0x05, 0x06, 0x0D,
                          0x07, 0x08, 0x09, 0x0E,
                          0x0A, 0x00, 0x0B, 0x0F};
+
+    if(chip->awaiting_input)
+    {
+        for(int i = 0; i < 16; i++)
+            if(IsKeyDown(raylib_keys[i]))
+            {
+                chip->keys[chip8_keys[i]] = 1;
+                chip->awaiting_input = 0;
+                chip8_step(chip);
+            }
+
+        return;
+    }
     
     for(int i = 0; i < 16; i++)
     {
