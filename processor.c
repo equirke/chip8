@@ -331,7 +331,7 @@ void chip8_step(chip8* chip)
             op_subn_reg_to_reg(chip, get_v_reg_x(upper), get_v_reg_y(lower));
             return;
         case SHL_RR:
-            op_shift_right_reg(chip, get_v_reg_x(upper), get_v_reg_y(lower));
+            op_shift_left_reg(chip, get_v_reg_x(upper), get_v_reg_y(lower));
             return;
         case SNE_RR:
             op_skip_if_reg_not_equal_rr(chip, get_v_reg_x(upper), get_v_reg_y(lower));

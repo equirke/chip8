@@ -56,7 +56,7 @@ dkms.conf
 
 # chip8 roms
 *.ch8
-chip8_roms/
+roms/
 schip8_roms/
 
 # Outputed execs
