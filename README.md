@@ -13,6 +13,6 @@ https://johnearnest.github.io/Octo/docs/XO-ChipSpecification.html
 
 ## Some roms working so far
 
-https://raw.githubusercontent.com/equirke/chip8/refs/heads/main/media/flight_runner.webm
+https://raw.githubusercontent.com/equirke/chip8/refs/heads/main/media/flight_runner.mov
 
-https://raw.githubusercontent.com/equirke/chip8/refs/heads/main/media/snek.webm
+https://raw.githubusercontent.com/equirke/chip8/refs/heads/main/media/snek.mov
