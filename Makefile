@@ -11,7 +11,7 @@ run_tests: parse_instruction_test processor_test
 	./processor_test
 
 chip8_debug: main_debug.c processor.o parse_instruction.o processor.h chip8.h chip_constants.h
-	$(CC) $(Flags) main_debug.c processor.o parse_instruction.o -o chip8_debug
+	$(CC) $(Flags) main_debug.c processor.o parse_instruction.o -o chip8_debug $(RAYLIB)
 
 chip8: main.c processor.o parse_instruction.o processor.h chip8.h chip_constants.h
 	$(CC) $(Flags) main.c processor.o parse_instruction.o -o chip8 $(RAYLIB)
