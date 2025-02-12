@@ -251,20 +251,20 @@ void op_bcd(chip8* chip, byte reg_x)
 
 void op_save_regs_at_i(chip8* chip, byte reg_x)
 {
-    for(int i = 0; i < reg_x; i++)
+    for(int i = 0; i <= reg_x; i++)
     {
         chip->memory[chip->I + i] = chip->v_regs[i];
     }
-    chip->I += reg_x;
+    chip->I += reg_x + 1;
 }
 
 void op_load_regs_at_i(chip8* chip, byte reg_x)
 {
-    for(int i = 0; i < reg_x; i++)
+    for(int i = 0; i <= reg_x; i++)
     {
         chip->v_regs[i] = chip->memory[chip->I + i];
     }
-    chip->I += reg_x;
+    chip->I += reg_x + 1; 
 }
 
 void chip8_step(chip8* chip)
