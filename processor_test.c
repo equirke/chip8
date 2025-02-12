@@ -33,6 +33,21 @@ START_TEST(test_add_carry)
 }
 END_TEST
 
+START_TEST(test_shift_left)
+{
+    chip8 chip;
+    chip.PC = 0;
+    chip.v_regs[0] = 8;
+    chip.v_regs[REG_VF] = 0;
+
+    byte number = 8;
+    byte result = (byte)number << (byte)number;
+    op_shift_left_reg(&chip, 1, 1);
+    ck_assert_uint_eq(result, 16);
+    ck_assert_uint_eq(chip.v_regs[0], 16);
+}
+END_TEST
+
 Suite* processor_suite(void)
 {
     Suite* s;
@@ -42,6 +57,7 @@ Suite* processor_suite(void)
     tcase = tcase_create("Main");
     tcase_add_test(tcase, test_add_no_carry);
     tcase_add_test(tcase, test_add_carry);
+    tcase_add_test(tcase, test_shift_left);
     suite_add_tcase(s, tcase);
     return s;
 }
