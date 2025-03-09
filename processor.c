@@ -110,14 +110,11 @@ void op_sub_reg_to_reg(chip8* chip, byte reg_x, byte reg_y)
 
 void op_shift_right_reg(chip8* chip, byte reg_x, byte reg_y)
 {
-    if(chip->v_regs[reg_x] & 0x01)
+    if(chip->v_regs[reg_y] & 0x01)
         chip->v_regs[REG_VF]  = 1;
     else
         chip->v_regs[REG_VF]  = 0;
-    if(reg_x == reg_y)
-        chip->v_regs[reg_x] = chip->v_regs[reg_x] >> 1;
-    else
-        chip->v_regs[reg_x] = chip->v_regs[reg_x] >> chip->v_regs[reg_y];
+    chip->v_regs[reg_x] = chip->v_regs[reg_y] >> 1;
 }
 
 void op_subn_reg_to_reg(chip8* chip, byte reg_x, byte reg_y)
@@ -132,15 +129,12 @@ void op_subn_reg_to_reg(chip8* chip, byte reg_x, byte reg_y)
 
 void op_shift_left_reg(chip8* chip, byte reg_x, byte reg_y)
 {
-    if(chip->v_regs[reg_x] & 0x80)
+    if(chip->v_regs[reg_y] & 0x80)
         chip->v_regs[REG_VF]  = 1;
     else
         chip->v_regs[REG_VF]  = 0;
 
-    if(reg_x == reg_y)
-        chip->v_regs[reg_x] = chip->v_regs[reg_x] << 1;
-    else
-        chip->v_regs[reg_x] = chip->v_regs[reg_x] << chip->v_regs[reg_y];
+        chip->v_regs[reg_x] = chip->v_regs[reg_y] << 1;
 }
 
 void op_skip_if_reg_not_equal_rr(chip8* chip, byte reg_x, byte reg_y)
